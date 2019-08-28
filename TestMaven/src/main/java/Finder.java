@@ -1,32 +1,32 @@
 public class Finder {
 
-    public static Integer getMaxInt(int[] array) {
-        if (array == null) {
+    public static Integer findMax(int[] intArray) {
+        if (intArray == null) {
             return null;
         }
-        if (array.length == 0){
+        if (intArray.length == 0){
             return null;
         }
-        int maxInt = array[0];
-        for (int i=1; i < array.length; i++) {
-            if (array[i] > maxInt) {
-                maxInt = array[i];
+        int maxInt = intArray[0];
+        for (int i=1; i < intArray.length; i++) {
+            if (intArray[i] > maxInt) {
+                maxInt = intArray[i];
             }
         }
         return maxInt;
     }
 
-    public static Integer getMinInt(int[] array) {
-        if (array == null) {
+    public static Integer findMin(int[] intArray) {
+        if (intArray == null) {
             return null;
         }
-        if (array.length == 0){
+        if (intArray.length == 0){
             return null;
         }
-        int minInt = array[0];
-        for (int i=1; i < array.length; i++) {
-            if (array[i] < minInt) {
-                minInt = array[i];
+        int minInt = intArray[0];
+        for (int i=1; i < intArray.length; i++) {
+            if (intArray[i] < minInt) {
+                minInt = intArray[i];
             }
         }
         return minInt;

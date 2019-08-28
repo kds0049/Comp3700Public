@@ -6,7 +6,7 @@ public class JUnitTest {
     checkMax() {
         int array[] = new int[]{1,7,3,4,5,6,2,8,9};
         Integer expected = 9;
-        Integer actual = Finder.getMaxInt(array);
+        Integer actual = Finder.findMax(array);
         Assert.assertEquals(expected, actual);
     }
     // Run once, e.g close connection, cleanup
@@ -15,7 +15,7 @@ public class JUnitTest {
     checkMin() {
         int array[] = new int[]{1,7,3,4,5,6,2,8,9};
         Integer expected = 1;
-        Integer actual = Finder.getMinInt(array);
+        Integer actual = Finder.findMin(array);
         Assert.assertEquals(expected, actual);
     }
     // Should rename to @BeforeTestMethod
@@ -24,7 +24,7 @@ public class JUnitTest {
     public void checkEmptyMax() {
         int array[] = new int[] {};
         Integer expected = null;
-        Integer actual = Finder.getMaxInt(array);
+        Integer actual = Finder.findMax(array);
         Assert.assertEquals(expected, actual);
     }
     // Should rename to @AfterTestMethod
@@ -32,21 +32,21 @@ public class JUnitTest {
     public void checkEmptyMin() {
         int array[] = new int[] {};
         Integer expected = null;
-        Integer actual = Finder.getMinInt(array);
+        Integer actual = Finder.findMin(array);
         Assert.assertEquals(expected, actual);
     }
     @Test
     public void checkNullMax() {
         int array[] = null;
         Integer expected = null;
-        Integer actual = Finder.getMaxInt(array);
+        Integer actual = Finder.findMax(array);
         Assert.assertEquals(expected, actual);
     }
     @Test
     public void checkNullMin() {
         int array[] = null;
         Integer expected = null;
-        Integer actual = Finder.getMinInt(array);
+        Integer actual = Finder.findMin(array);
         Assert.assertEquals(expected, actual);
     }
 }
