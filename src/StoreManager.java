@@ -1,58 +1,64 @@
-//package edu.auburn;
-
 import javax.swing.*;
 
 public class StoreManager {
-   public static final String DBMS_SQ_LITE = "SQLite";
-   public static final String DB_FILE = "/Users/Karl_Sprayberry/Documents/store.db";
-   
-   IDataAdapter adapter = null;
-   private static StoreManager instance = null;
+    public static String dbms = "SQLite";
+    public static String path = "";
 
-   public static StoreManager getInstance() {
-      if (instance == null) {
-      
-         String dbfile = DB_FILE;
-         JFileChooser fc = new JFileChooser();
-         if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
-            dbfile = fc.getSelectedFile().getAbsolutePath();
-            
-         instance = new StoreManager(DBMS_SQ_LITE, DB_FILE);
-      }
-      return instance;
-   }
+    IDataAdapter dataAdapter = null;
+    private static StoreManager instance = null;
 
-   private StoreManager(String db, String dbfile) {
-      if (db.equals("Oracle"))
-         adapter = new OracleDataAdapter();
-      else
-         if (db.equals("SQLite"))
-            adapter = new SQLiteDataAdapter();
-   
-      adapter.connect(dbfile);
-      ProductModel product = adapter.loadProduct(3);
-   
-      System.out.println("Loaded product: " + product);
-   
-   }
+    public static StoreManager getInstance() {
+        if (instance == null) {
+            instance = new StoreManager(dbms, path);
+        }
+        return instance;
+    }
 
-   public IDataAdapter getDataAdapter() {
-      return adapter;
-   }
+    private StoreManager(String dbms, String dbfile) {
+        if (dbms.equals("Oracle"))
+            dataAdapter = new OracleDataAdapter();
+        else
+        if (dbms.equals("SQLite"))
+            dataAdapter = new SQLiteDataAdapter();
+        else
+        if (dbms.equals("Network"))
+            dataAdapter = new NetworkDataAdapter();
 
-   public void setDataAdapter(IDataAdapter a) {
-      adapter = a;
-   }
-   
-   public void run() {
-      MainUI ui = new MainUI();
-      ui.view.setVisible(true);
-   }
+        dataAdapter.connect(dbfile);
 
-   public static void main(String[] args) {
-      System.out.println("Hello class!");
-      //StoreManager.getInstance().init(); //If you want to initialize something, create init function first
-      StoreManager.getInstance().run();
-   }
+    }
+
+    public IDataAdapter getDataAdapter() {
+        return dataAdapter;
+    }
+
+    public void setDataAdapter(IDataAdapter a) {
+        dataAdapter = a;
+    }
+
+
+    public void run() {
+        LoginUI ui = new LoginUI();
+        ui.view.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Hello class!");
+        if (args.length > 0) { // having runtime arguments
+            dbms = args[0];
+            if (args.length == 1) { // do not have 2nd arguments for dbfile
+                if (dbms.equals("SQLite")) {
+                    JFileChooser fc = new JFileChooser();
+                    if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+                        path = fc.getSelectedFile().getAbsolutePath();
+                }
+                else
+                    path = JOptionPane.showInputDialog("Enter address of database server as host:port");
+            }
+            else
+                path = args[1];
+        }
+        StoreManager.getInstance().run();
+    }
 
 }
